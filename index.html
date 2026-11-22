@@ -29,8 +29,8 @@ button{font:inherit;cursor:pointer}
 .tm{width:52px;flex:none;text-align:center;line-height:1.2}.tm b{display:block;font-size:16px}.tm small{color:var(--mu);font-size:11px}
 .bd{flex:1;min-width:0}.nm{font-weight:700}.mt{font-size:12px;color:var(--mu)}
 .nt{font-size:12px;margin-top:2px;color:var(--tx);opacity:.85}
-.wt{display:inline-block;font-weight:800;font-size:11px;padding:0 6px;border-radius:6px;margin-left:4px;border:1.5px solid}.wt.m{background:#e0e7ff;color:#3730a3;border-color:#a5b4fc}.wt.a{background:#dcfce7;color:#166534;border-color:#86efac}
-.rc{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}.rc .wt{margin:0}.nm{display:flex;flex-wrap:wrap;align-items:center;gap:2px 4px}.nm .dp,.nm .wt{margin-left:0;white-space:nowrap}.nm>span:first-child{flex:0 1 auto;min-width:0}.lk.ic{font-size:20px;text-decoration:none;padding:2px 12px;line-height:1.2}.fsz b{color:var(--tx)}.fsz .lk{padding:4px 6px}.sub.ar{cursor:pointer}
+.wt{display:inline-block;font-weight:800;font-size:11px;padding:0 6px;border-radius:6px;margin-left:4px;border:1.5px solid}.wt.m{background:#e0e7ff;color:#3730a3;border-color:#a5b4fc}.wt.a{background:#dcfce7;color:#166534;border-color:#86efac}.wt.c{background:#fde8d4;color:#9a3412;border-color:#fdba74}
+.rc{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}.rc .wt{margin:0}.nm{display:flex;flex-wrap:wrap;align-items:center;gap:2px 4px}.nm .dp,.nm .wt{margin-left:0;white-space:nowrap}.nm>span:first-child{flex:0 1 auto;min-width:0}.lk.ic{font-size:20px;text-decoration:none;padding:2px 12px;line-height:1.2}.tbar{display:flex;align-items:center;justify-content:space-between;gap:2px;margin:0 0 8px;flex-wrap:nowrap}.tbar .lk{font-size:12px;padding:4px 5px;white-space:nowrap}.tbar .dirb{font-size:15px;font-weight:800;text-decoration:none;color:var(--tx);border:1.5px solid var(--ln);border-radius:10px;background:var(--card)}.fsz b{color:var(--tx)}.fsz .lk{padding:4px 6px}.sub.ar{cursor:pointer}
 .dp{display:inline-block;background:var(--gl);color:var(--gd);font-weight:800;font-size:11px;padding:0 6px;border-radius:6px;margin-left:4px}
 .wn{font-size:12px;color:#e11d48;font-weight:700}
 .ed{display:none;padding:10px 12px;background:var(--in);border-top:1px solid var(--ln);gap:8px;flex-wrap:wrap;align-items:center;font-size:13px}
@@ -125,14 +125,11 @@ body.sea{--gd:#6ec6d8;--gl:#d8f0f5;--pk:#e1f2f6;--bg:#eef7f9}
 <div class="wrap">
   <div id="v-plan">
     <p class="hint">💡 選項會依方向自動按區域排好；長按項目可編輯備註／刪除</p>
-    <div class="seg"><button id="d-cw" class="on" onclick="setDir('cw')">↻ 順時針</button><button id="d-ccw" onclick="setDir('ccw')">↺ 逆時針</button></div>
+    <div class="tbar"><button class="lk dirb" id="dirb" onclick="setDir(DIRS[park]==='cw'?'ccw':'cw')" title="切換順時針／逆時針">↻</button><button class="lk" onclick="fetchWT()">更新等候時間</button><span class="fsz" style="white-space:nowrap">字體 <button class="lk" data-f="1.12" onclick="setFs(1.12)">小</button><button class="lk" data-f="1.3" onclick="setFs(1.3)">中</button><button class="lk" data-f="1.5" onclick="setFs(1.5)">大</button></span><button class="lk" id="clr" onclick="clearAll()">清空</button></div>
     <div id="list"></div>
     <div style="text-align:center;margin-top:24px">
       <button class="lk" onclick="exportTxt()">匯出 / 複製</button>
       <button class="lk" id="smp" onclick="sample(true)">載入範例</button>
-      <button class="lk" onclick="fetchWT()">更新等候時間</button>
-      <span class="fsz" style="white-space:nowrap">字體 <button class="lk" data-f="0.9" onclick="setFs(0.9)">小</button><button class="lk" data-f="1" onclick="setFs(1)">中</button><button class="lk" data-f="1.12" onclick="setFs(1.12)">大</button></span>
-      <button class="lk" id="clr" onclick="clearAll()">清空</button>
     </div>
   </div>
 
@@ -313,7 +310,7 @@ function wtTog(u){const i=it.find(x=>x.u===u);if(!i)return;const w=(WT[park]||{}
 function wtBadge(i){
   if(i.c!=='ride')return '';const w=(WT[park]||{})[sid(i)];if(!w)return '';
   const mins=Math.round((Date.now()-w.t)/60000),ago=mins<1?'剛剛':mins<60?mins+' 分鐘前':Math.round(mins/60)+' 小時前';
-  if(w.c)return `<span class="wt a" title="${ago}">休止</span>`;
+  if(w.c)return `<span class="wt c" title="${ago}">休止</span>`;
   const cl=w.a?'a':'m',oc=`onclick="event.stopPropagation();wtTog('${i.u}')"`;
   if(w.sv&&w.at){const d=new Date(w.at);return `<span class="wt ${cl}" ${oc} title="點一下改回分鐘">🕒 預計 ${d.getHours()}:${String(d.getMinutes()).padStart(2,'0')}</span>`}
   return `<span class="wt ${cl}" ${oc} title="${w.a?'自動':'手動'}・${ago}・點一下換成預計時間">⏱ ${w.m} 分</span>`;
@@ -332,8 +329,8 @@ function load(){
   sample();
 }
 function toast(m){const t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),1900)}
-function setFs(f){document.documentElement.style.setProperty('--fz',f);try{localStorage.setItem('tdl_fs',f)}catch(e){}document.querySelectorAll('.fsz .lk').forEach(b=>{const on=+b.dataset.f===+f;b.style.fontWeight=on?'800':'';b.style.color=on?'var(--tx)':''})}
-{let f=1;try{f=+localStorage.getItem('tdl_fs')||1}catch(e){}setTimeout(()=>setFs(f),0)}
+function setFs(f){document.documentElement.style.setProperty('--fz',f);try{localStorage.setItem('tdl_fs2',f)}catch(e){}document.querySelectorAll('.fsz .lk').forEach(b=>{const on=+b.dataset.f===+f;b.style.fontWeight=on?'800':'';b.style.color=on?'var(--tx)':''})}
+{let f=1;try{f=+localStorage.getItem('tdl_fs2')||1.12}catch(e){}setTimeout(()=>setFs(f),0)}
 function go(v,np){
   if(!np){if(v==='add'&&curView()!=='add')history.pushState({v:'add'},'');else if(v==='plan'&&curView()==='add'&&history.state&&history.state.v==='add'){history.back();return}}
   $('v-plan').style.display=v==='plan'?'':'none';$('v-add').style.display=v==='add'?'':'none';
@@ -354,8 +351,8 @@ function render(){
     n++;
     return h+`<div class="w" data-w="${i.u}"><div class="it ${i.c}" data-u="${i.u}">
       <div class="tm"><b${(PINS[park]||{})[sid(i)]?` onclick="event.stopPropagation();loc('${sid(i)}')" style="cursor:pointer"`:''}>${n}</b></div>
-      <div class="bd"><div class="nm"><span>${ICON[i.c]||'⭐'} ${esc(i.n)}</span>${i.tm?`<span class="dp" style="background:var(--pk)">⏰ ${i.tm}</span>`:''}${i.x?`<span class="dp">⚡DPA ¥${i.p.toLocaleString()}</span>`:''}</div>
-      ${i.note?`<div class="nt">📝 ${esc(i.note)}</div>`:''}</div><div class="rc">${(PINS[park]||{})[sid(i)]?`<button class="loc" onclick="loc('${sid(i)}')">📍</button>`:''}${wtBadge(i)}</div></div></div>`;
+      <div class="bd"><div class="nm"><span>${ICON[i.c]||'⭐'} ${esc(i.n)}</span>${wtBadge(i)}${i.tm?`<span class="dp" style="background:var(--pk)">⏰ ${i.tm}</span>`:''}${i.x?`<span class="dp">⚡DPA ¥${i.p.toLocaleString()}</span>`:''}</div>
+      ${i.note?`<div class="nt">📝 ${esc(i.note)}</div>`:''}</div><div class="rc">${(PINS[park]||{})[sid(i)]?`<button class="loc" onclick="loc('${sid(i)}')">📍</button>`:''}</div></div></div>`;
   }).join('');
 }
 function up(u,f,v){const i=it.find(x=>x.u===u);if(!i)return;i[f]=v;save();render()}
@@ -482,7 +479,7 @@ function copyTxt(){
 function ui(){
   const s=park==='sea';
   document.body.classList.toggle('sea',s);
-  ['cw','ccw'].forEach(d=>$('d-'+d).classList.toggle('on',DIRS[park]===d));
+  $('dirb').textContent=DIRS[park]==='cw'?'↻ 順':'↺ 逆';
   $('pk-land').classList.toggle('on',!s);$('pk-sea').classList.toggle('on',s);
   $('ttl').textContent=s?'🌊 東京迪士尼海洋一日遊':'🏰 東京迪士尼樂園一日遊';
   document.title=s?'東京迪士尼海洋一日遊行程':'東京迪士尼樂園一日遊行程';
@@ -615,6 +612,9 @@ function mvFocus(){
 const scr=p=>[MV.x+p[0]/PW*MV.w*MV.s,MV.y+p[1]/PH*MV.h*MV.s];
 function mvTap(x,y){
   const k=MV.k,R=28;let best=null,bd=R;
+  {const Lg=LEG[k]||{};let ln=0,ld=18;Object.keys(Lg).forEach(n=>{const[a,b]=scr(Lg[n]),d=Math.hypot(a-x,b-y);if(d<ld){ld=d;ln=+n}});
+   if(ln){const j=(SPOTS[k]||[]).findIndex(s=>s[0]!=='w'&&parseInt(s[3])===ln);
+     if(j>=0){MV.sel={t:'s',j};MV.f=null;MV.leg=false;const sp=SPOTS[k][j],bx=$('mv-box').getBoundingClientRect();MV.s=MV.min*6;MV.x=bx.width/2-sp[1]/PW*MV.w*MV.s;MV.y=bx.height*0.4-sp[2]/PH*MV.h*MV.s;mvClamp();MV.z=null;mvApply();mvPins();mvCard();return}}}
   if(MVS.p&&k===park)sorted().forEach(i=>{const p=(PINS[k]||{})[sid(i)];if(!p)return;const[a,b]=scr(p),d=Math.hypot(a-x,b-y);if(d<bd){bd=d;best={t:'i',u:i.u,id:sid(i)}}});
   if(!best&&MV.z&&MVS.c)(SPOTS[k]||[]).forEach((s,j)=>{if(s[0]!==MVS.c)return;const[a,b]=scr([s[1],s[2]]),d=Math.hypot(a-x,b-y);if(d<bd){bd=d;best={t:'s',j}}});
   MV.sel=best||(MV.f?{t:'f',id:MV.f}:null);MV.leg=false;

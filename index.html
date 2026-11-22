@@ -279,21 +279,23 @@ const sorted=()=>[...it].sort(cmp);
 let WT={land:{},sea:{}};try{const w=JSON.parse(localStorage.getItem('tdl_wt')||'null');if(w)WT=Object.assign(WT,w)}catch(e){}
 function saveWT(){try{localStorage.setItem('tdl_wt',JSON.stringify(WT))}catch(e){}}
 const QK={beauty:['beauty and the beast'],pooh:['pooh'],haunted:['haunted'],smallworld:['small world'],peterpan:['peter pan'],snowwhite:['snow white'],pinocchio:['pinocchio'],dumbo:['dumbo'],carousel:['carrousel','carousel'],tea:['alice'],baymax:['baymax'],monsters:['monsters'],startours:['star tours'],stitch:['stitch encounter','stitch'],bigthunder:['big thunder'],splash:['splash'],canoe:['canoe'],marktwain:['mark twain'],tomsawyer:['tom sawyer'],countrybear:['country bear'],shooting:['shootin'],pirates:['pirates'],jungle:['jungle cruise'],railroad:['railroad'],tiki:['tiki'],roger:['roger rabbit'],gadget:['gadget'],goofy:["goofy"],minnie:["minnie's house","minnie"],omnibus:['omnibus']};
+async function getJ(u){const ctl=new AbortController(),to=setTimeout(()=>ctl.abort(),9000);try{const r=await fetch(u,{signal:ctl.signal});if(!r.ok)throw new Error('HTTP '+r.status);return await r.json()}finally{clearTimeout(to)}}
 async function fetchWT(){
   if(park!=='land'){toast('海洋還沒支援自動抓，請在行程項目長按手動填');return}
   toast('更新中…');
-  try{
-    const ctl=new AbortController(),to=setTimeout(()=>ctl.abort(),9000);
-    const r=await fetch('https://queue-times.com/parks/274/queue_times.json',{signal:ctl.signal});clearTimeout(to);
-    if(!r.ok)throw new Error(r.status);
-    const j=await r.json(),rides=[...(j.rides||[]),...(j.lands||[]).flatMap(l=>l.rides||[])];
-    WT.land=WT.land||{};let ok=0,miss=[];
-    D.filter(d=>d.k==='land'&&d.c==='ride'&&QK[d.id]).forEach(d=>{
-      const m=rides.find(x=>QK[d.id].some(k=>String(x.name||'').toLowerCase().includes(k)));
-      if(m){{const n=Date.now(),mm=m.is_open?m.wait_time:0;WT.land[d.id]={m:mm,c:!m.is_open,t:n,a:1,at:n+mm*60000,sv:(WT.land[d.id]||{}).sv}}ok++}else miss.push(d.n)
-    });
-    saveWT();render();toast(ok?`已更新 ${ok} 項等候時間`:'有抓到資料，但沒有對到任何設施，請手動填');
-  }catch(e){toast('抓不到即時資料（可能被瀏覽器擋住），請長按項目手動填')}
+  const U='https://queue-times.com/parks/274/queue_times.json';
+  const tries=[['直連',U],['代理1','https://api.allorigins.win/raw?url='+encodeURIComponent(U)],['代理2','https://corsproxy.io/?'+encodeURIComponent(U)]];
+  let j=null,errs=[];
+  for(const[n,u]of tries){try{j=await getJ(u);if(j&&(j.lands||j.rides))break;j=null;errs.push(n+':格式不對')}catch(e){errs.push(n+':'+(e.message||e.name))}}
+  if(!j){toast('抓不到：'+errs.join('、'));return}
+  const rides=[...(j.rides||[]),...(j.lands||[]).flatMap(l=>l.rides||[])];
+  WT.land=WT.land||{};let ok=0;
+  D.filter(d=>d.k==='land'&&d.c==='ride'&&QK[d.id]).forEach(d=>{
+    const m=rides.find(x=>QK[d.id].some(k=>String(x.name||'').toLowerCase().includes(k)));
+    if(m){const n=Date.now(),mm=m.is_open?m.wait_time:0;WT.land[d.id]={m:mm,c:!m.is_open,t:n,a:1,at:n+mm*60000,sv:(WT.land[d.id]||{}).sv};ok++}
+  });
+  saveWT();render();
+  toast(ok?`已更新 ${ok} 項（共 ${rides.length} 項資料）`:`有抓到 ${rides.length} 項資料但對不到設施：`+rides.slice(0,4).map(x=>x.name).join('、'));
 }
 function wtTog(u){const i=it.find(x=>x.u===u);if(!i)return;const w=(WT[park]||{})[sid(i)];if(!w||w.c)return;w.sv=!w.sv;saveWT();render()}
 function wtBadge(i){

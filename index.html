@@ -26,11 +26,11 @@ button{font:inherit;cursor:pointer}
 .w{background:var(--card);border:1px solid var(--ln);border-radius:14px;margin-bottom:8px;overflow:hidden}
 .it{display:flex;gap:10px;padding:10px 12px;border-left:5px solid var(--c);cursor:pointer}
 .ride{--c:#6366f1}.show{--c:#e11d48}.food{--c:#059669}.custom{--c:#d97706}
-.tm{width:52px;flex:none;text-align:center;line-height:1.2}.tm b{display:block;font-size:16px}.tm small{color:var(--mu);font-size:11px}
+.tm{width:40px;flex:none;text-align:center;line-height:1.2}.tm b{display:block;font-size:16px}.tm small{color:var(--mu);font-size:11px}
 .bd{flex:1;min-width:0}.nm{font-weight:700}.mt{font-size:12px;color:var(--mu)}
 .nt{font-size:12px;margin-top:2px;color:var(--tx);opacity:.85}
 .wt{display:inline-block;font-weight:800;font-size:11px;padding:0 6px;border-radius:6px;margin-left:4px;border:1.5px solid}.wt.m{background:#e0e7ff;color:#3730a3;border-color:#a5b4fc}.wt.a{background:#dcfce7;color:#166534;border-color:#86efac}.wt.c{background:#fde8d4;color:#9a3412;border-color:#fdba74}
-.rc{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}.rc .wt{margin:0}.nm{display:flex;flex-wrap:wrap;align-items:center;gap:2px 4px}.nm .dp,.nm .wt{margin-left:0;white-space:nowrap}.nm>span:first-child{flex:0 1 auto;min-width:0}.lk.ic{font-size:20px;text-decoration:none;padding:2px 12px;line-height:1.2}.tbar{display:flex;align-items:center;justify-content:space-between;gap:2px;margin:0 0 8px;flex-wrap:nowrap}.tbar .lk{font-size:12px;padding:4px 5px;white-space:nowrap}.tbar .dirb{font-size:15px;font-weight:800;text-decoration:none;color:var(--tx);border:1.5px solid var(--ln);border-radius:10px;background:var(--card)}.fsz b{color:var(--tx)}.fsz .lk{padding:4px 6px}.sub.ar{cursor:pointer}
+.rc{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:4px}.rc .wt{margin:0}.nm{display:flex;flex-wrap:wrap;align-items:center;gap:2px 4px}.nm .dp,.nm .wt{margin-left:0;white-space:nowrap}.nm>span:first-child{flex:0 1 auto;min-width:0;line-break:anywhere}.lk.ic{font-size:20px;text-decoration:none;padding:2px 12px;line-height:1.2}.loc,.acts,.nx,.lib .top>.btn{zoom:calc(1.12/var(--fz,1))}.acts{display:flex;gap:8px;flex:none;align-items:center}.acts .btn.ab{width:38px;height:38px;padding:0;font-size:20px;line-height:1;background:var(--gd);color:#3b2f2a;border:2px solid var(--bd)}.acts .btn.ab.ok{background:var(--card)}.acts .loc{zoom:1;width:38px;height:38px;font-size:17px;align-self:center}.lib .nm{display:block}.lib{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}.nx{border:0;background:none;font-size:15px;opacity:.5;padding:2px 6px;margin-left:2px;vertical-align:middle;cursor:pointer}.seg#seg{zoom:calc(min(1.3,var(--fz,1))/var(--fz,1))}.seg#seg button{white-space:nowrap;padding:7px 2px}.tbar{display:flex;align-items:center;justify-content:center;gap:4px 16px;margin:0 0 8px;flex-wrap:wrap;zoom:calc(1/var(--fz,1))}.tbar .lk{font-size:13px;padding:4px 0;white-space:nowrap}.tbar .fsz{font-size:13px;display:inline-flex;align-items:center;gap:10px}.tbar .fsz .lk{padding:4px 0}.fsz b{color:var(--tx)}.fsz .lk{padding:4px 6px}.sub.ar{cursor:pointer}
 .dp{display:inline-block;background:var(--gl);color:var(--gd);font-weight:800;font-size:11px;padding:0 6px;border-radius:6px;margin-left:4px}
 .wn{font-size:12px;color:#e11d48;font-weight:700}
 .ed{display:none;padding:10px 12px;background:var(--in);border-top:1px solid var(--ln);gap:8px;flex-wrap:wrap;align-items:center;font-size:13px}
@@ -89,7 +89,7 @@ body.sea{--gd:#6ec6d8;--gl:#d8f0f5;--pk:#e1f2f6;--bg:#eef7f9}
 #mv-img{position:absolute;left:0;top:0;transform-origin:0 0;max-width:none;user-select:none;-webkit-user-select:none;-webkit-user-drag:none}
 #mv-wrap{position:absolute;left:0;top:0;transform-origin:0 0}
 #mv-img{position:static;display:block;width:100%;height:100%;transform:none}
-.loc{flex:none;align-self:center;border:2px solid var(--ln);background:var(--in);border-radius:50%;width:34px;height:34px;font-size:16px;padding:0;cursor:pointer}
+.loc{flex:none;align-self:flex-start;border:2px solid var(--ln);background:var(--in);border-radius:50%;width:28px;height:28px;font-size:14px;padding:0;cursor:pointer}
 #fab{touch-action:none;user-select:none;-webkit-user-select:none}
 /* 地圖標記：統一紅色粗空心圓環，不遮住底圖編號 */
 #mv-wrap{--c:#ff6a00;--o:#0a5cff}
@@ -124,16 +124,17 @@ body.sea{--gd:#6ec6d8;--gl:#d8f0f5;--pk:#e1f2f6;--bg:#eef7f9}
 
 <div class="wrap">
   <div id="v-plan">
-    <p class="hint">💡 選項會依方向自動按區域排好；長按項目可編輯備註／刪除</p>
-    <div class="tbar"><button class="lk dirb" id="dirb" onclick="setDir(DIRS[park]==='cw'?'ccw':'cw')" title="切換順時針／逆時針">↻</button><button class="lk" onclick="fetchWT()">更新等候時間</button><span class="fsz" style="white-space:nowrap">字體 <button class="lk" data-f="1.12" onclick="setFs(1.12)">小</button><button class="lk" data-f="1.3" onclick="setFs(1.3)">中</button><button class="lk" data-f="1.5" onclick="setFs(1.5)">大</button></span><button class="lk" id="clr" onclick="clearAll()">清空</button></div>
+    <div class="tbar"><button class="lk" id="dirb" onclick="setDir(DIRS[park]==='cw'?'ccw':'cw')" title="切換順時針／逆時針">↻</button><button class="lk" onclick="fetchWT()">更新等候時間</button><span class="fsz"><span>字體</span><button class="lk" data-f="1.12" onclick="setFs(1.12)">小</button><button class="lk" data-f="1.3" onclick="setFs(1.3)">中</button><button class="lk" data-f="1.5" onclick="setFs(1.5)">大</button></span></div>
     <div id="list"></div>
     <div style="text-align:center;margin-top:24px">
       <button class="lk" onclick="exportTxt()">匯出 / 複製</button>
       <button class="lk" id="smp" onclick="sample(true)">載入範例</button>
+      <button class="lk" id="clr" onclick="clearAll()">清空</button>
     </div>
   </div>
 
   <div id="v-add" style="display:none">
+    <div class="tbar"><span class="fsz"><span>字體</span><button class="lk" data-f="1.12" onclick="setFs(1.12)">小</button><button class="lk" data-f="1.3" onclick="setFs(1.3)">中</button><button class="lk" data-f="1.5" onclick="setFs(1.5)">大</button></span></div>
     <div class="seg" id="seg"></div>
     <div id="libbar"><input id="q" type="search" placeholder="搜尋名稱或區域…" oninput="q=this.value;lib()" style="width:100%;margin-bottom:6px"><div style="text-align:right;margin-bottom:6px"><button class="lk" id="offbtn" onclick="showOff=!showOff;lib()"></button></div></div>
     <div id="lib"></div>
@@ -150,7 +151,7 @@ body.sea{--gd:#6ec6d8;--gl:#d8f0f5;--pk:#e1f2f6;--bg:#eef7f9}
   <div style="display:flex;gap:8px"><button class="btn rd" style="flex:1" onclick="shDel()">🗑 刪除</button><button class="btn" style="flex:1" onclick="closeSheet()">完成</button></div>
 </div></div>
 <button id="fab" aria-label="開啟園區地圖（可拖曳移動）">🗺️</button>
-<div id="mv"><div class="mvh"><div class="seg"><button id="mv-land" onclick="mvPark('land')">🏰 陸地</button><button id="mv-sea" onclick="mvPark('sea')">🌊 海洋</button></div><button class="btn ln" onclick="mvZoom(1/1.4)">－</button><button class="btn ln" onclick="mvZoom(1.4)">＋</button><button class="btn ln" onclick="mvReset()">還原</button><button class="btn" onclick="mvClose()">✕</button></div><div class="mvf"><button id="f-r" class="on" onclick="mvF('r')">🎢 設施</button><button id="f-h" onclick="mvF('h')">✨ 表演</button><button id="f-f" onclick="mvF('f')">🍴 餐廳</button><button id="f-s" onclick="mvF('s')">🛍 商店</button><button id="f-w" onclick="mvF('w')">🚻 洗手間</button><button id="f-p" class="on" onclick="mvF('p')">📍 行程</button></div><div id="mv-box"><div id="mv-tip" style="display:none"></div><div id="mv-wrap"><img id="mv-img" alt="園區地圖" draggable="false"><div id="mv-pins"></div></div></div><div id="mv-card"></div></div>
+<div id="mv"><div class="mvh"><div class="seg"><button id="mv-land" onclick="mvPark('land')">🏰 陸地</button><button id="mv-sea" onclick="mvPark('sea')">🌊 海洋</button></div><button class="btn ln" onclick="mvZoom(1/1.4)">－</button><button class="btn ln" onclick="mvZoom(1.4)">＋</button><button class="btn ln" onclick="mvReset()">還原</button><button class="btn" onclick="mvClose()">✕</button></div><div class="mvf"><button id="f-r" onclick="mvF('r')">🎢 設施</button><button id="f-h" onclick="mvF('h')">✨ 表演</button><button id="f-f" onclick="mvF('f')">🍴 餐廳</button><button id="f-s" onclick="mvF('s')">🛍 商店</button><button id="f-w" onclick="mvF('w')">🚻 洗手間</button><button id="f-p" class="on" onclick="mvF('p')">📍 行程</button></div><div id="mv-box"><div id="mv-tip" style="display:none"></div><div id="mv-wrap"><img id="mv-img" alt="園區地圖" draggable="false"><div id="mv-pins"></div></div></div><div id="mv-card"></div></div>
 <div id="toast"></div>
 <div id="mod"><div class="bx">
   <b>純文字行程（可貼到 LINE / 備忘錄）</b>
@@ -439,10 +440,19 @@ function lib(){
     const sub=d.a!==area?`<div class="sub">${d.a}</div>`:'';area=d.a;
     const chips=d.ts&&!isOff?`<div class="chips"><span class="mt">預約時間：</span>${d.ts.map(t=>`<button class="chip ${ex&&ex.tm===t?'sel':''}" onclick="add('${d.id}','${t}')">${t}</button>`).join('')}</div>`:'';
     const info=[`約 ${d.d} 分`,d.h?`<b style="color:#e11d48">${d.h}</b>`:'',d.tag||'',d.p?`<span class="dp" style="margin:0">⚡DPA ¥${d.p.toLocaleString()}</span>`:''].filter(Boolean).join('・');
-    const btn=isOff?`<button class="btn ln" onclick="togItem('${d.id}')">開啟</button>`:`<button class="btn ${on?'ok':''}" onclick="add('${d.id}')">${on?'✓ 已加入':'＋ 加入'}</button>`;
-    return sub+`<div class="w lib ${isOff?'dis':''}"><div class="top"><div><div class="nm">${esc(d.n)}</div><p>${info}</p></div>${btn}</div>${chips}${isOff?'':`<div style="text-align:right">${(PINS[park]||{})[d.id]?`<button class="lk ic" title="看位置" aria-label="看位置" onclick="loc('${d.id}')">📍</button>`:''}<button class="lk ic" title="不想去" aria-label="不想去" onclick="togItem('${d.id}')">🚫</button></div>`}</div>`;
+    const btn=isOff?`<button class="btn ln" onclick="togItem('${d.id}')">開啟</button>`:`<div class="acts"><button class="btn ab ${on?'ok':''}" title="${on?'已加入，點一下取消':'加入行程'}" aria-label="加入行程" onclick="add('${d.id}')">${on?'✓':'＋'}</button>${(PINS[park]||{})[d.id]?`<button class="loc" title="看位置" aria-label="看位置" onclick="loc('${d.id}')">📍</button>`:''}</div>`;
+    return sub+`<div class="w lib ${isOff?'dis':''}" data-id="${d.id}"><div class="top"><div><div class="nm">${esc(d.n)}</div><p>${info}</p></div>${btn}</div>${chips}</div>`;
   }).join('');
 }
+
+// ===== 加入項目頁：長按卡片＝不想去 =====
+(()=>{
+  const B=$('lib');let tm,sx=0,sy=0,fired=0;
+  B.addEventListener('pointerdown',e=>{const c=e.target.closest('.w.lib[data-id]');if(!c||e.target.closest('button')||e.button>0)return;sx=e.clientX;sy=e.clientY;clearTimeout(tm);tm=setTimeout(()=>{fired=Date.now();if(navigator.vibrate)navigator.vibrate(30);const id=c.dataset.id;togItem(id);toast(OFF[park].includes(id)?'已設為不想去（可在「顯示已關閉的項目」開啟）':'已重新開啟')},550)});
+  B.addEventListener('pointermove',e=>{if(Math.abs(e.clientX-sx)>10||Math.abs(e.clientY-sy)>10)clearTimeout(tm)});
+  ['pointerup','pointercancel'].forEach(n=>document.addEventListener(n,()=>clearTimeout(tm)));
+  B.addEventListener('contextmenu',e=>{if(e.target.closest('.w.lib[data-id]'))e.preventDefault()});
+})();
 
 // ===== 範例、匯出 =====
 const SL=[['beauty',0,1,'入園先買 DPA 或開園直衝'],['pooh'],['musicworld','10:50',0,'App 抽籤；未中再考慮 DPA'],['hungrybear',0,0,'午餐・Mobile Order'],['harmony','13:00',0,'提早 30 分鐘卡位'],['bigthunder',0,1],['haunted'],['baymax',0,1],['tomorrow',0,0,'晚餐・Mobile Order'],['reach','18:10'],['electrical','19:15',0,'必看夜間發光遊行'],['monsters',0,0,'閉園前衝刺＋買伴手禮']];
@@ -556,7 +566,7 @@ function mvZoom(f,cx,cy){
 })();
 
 // ===== 地圖標記：行程圖釘、可點編號、資訊卡 =====
-const ZT=3.5,TYPES={r:'遊樂設施',h:'表演・迎賓',f:'餐飲',s:'商店',w:'洗手間'},CATS=['r','h','f','s','w'],MVS={c:'r',p:true};
+const ZT=3.5,TYPES={r:'遊樂設施',h:'表演・迎賓',f:'餐飲',s:'商店',w:'洗手間'},CATS=['r','h','f','s','w'],MVS={c:null,p:true};
 const curView=()=>$('v-plan').style.display==='none'?'add':'plan';
 function loc(id){
   if(!(PINS[park]||{})[id]){toast('這個項目還沒有地圖位置');return}
